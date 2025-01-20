@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="mc-check",
-    version="1.0.1",
+    version="1.0.0",
     description="CLI tool to check Minecraft server status using the mcsrvstat.us API",
     author="Dmitrii Orlovski",
     author_email="alvaniss1g@gmail.com",
