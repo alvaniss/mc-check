@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mc-check"
+version = "1.0.0"
+description = "CLI tool to check Minecraft server status using the mcsrvstat.us API"
+authors = [
+    {name = "Dmitrii Orlovski", email = "alvaniss1g@gmail.com"},
+]
+license = {text = "GPL-3.0"}
+dependencies = ["requests"]
+requires-python = ">=3.6"
+
+[project.scripts]
+mc-check = "mc_check:main"
