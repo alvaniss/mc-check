@@ -13,5 +13,14 @@ license = {text = "GPL-3.0"}
 dependencies = ["requests"]
 requires-python = ">=3.6"
 
+long_description = {file = "README.md"}
+long_description_content_type = "text/markdown"
+
 [project.scripts]
 mc-check = "mc_check:main"
+
+[tool.setuptools.package_data]
+mc-check = ["README.md"]
+
+[tool.setuptools.sdist]
+include = ["README.md"]
