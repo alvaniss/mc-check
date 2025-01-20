@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mc-check"
-version = "1.0.2"
+version = "1.0.3"
 description = "CLI tool to check Minecraft server status using the mcsrvstat.us API"
 authors = [
     {name = "Dmitrii Orlovski", email = "alvaniss1g@gmail.com"},
