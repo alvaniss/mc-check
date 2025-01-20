@@ -43,34 +43,47 @@ def interpret_motd(motd):
     return colored_motd + "\033[0m"
 
 
-def print_section(title, content, indent=2):
-    print(f"\n{title}:")
+def print_section(title, content, indent=5):
+    # Added a newline before each section for better spacing
+    print(f"\n   {title}:")
     for line in content:
         print(" " * indent + line)
 
+
+def print_mc_check_header():
+    # Adding exactly 3 spaces before the header
+    print(f"\n   \033[44m\033[1m mc-check \033[0m")
+
+
+
 def check_server_status(server_address):
+    print_mc_check_header()
     url = f"https://api.mcsrvstat.us/2/{server_address}"
     try:
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
         
-        print(f"IP: {server_address}")
-        
         if not data.get("online"):
-            print("\nThe server is \033[31mOFFLINE\033[0m.")
+            print("\n   The server is \033[31mOFFLINE\033[0m.")
             return
+
+        ip = data.get("ip", "Unknown")
+        hostname = data.get("hostname", server_address)
         
         raw_motd = "".join(data.get("motd", {}).get("raw", []))
+
         print_section("MOTD", [interpret_motd(raw_motd)])
-        
+
         print_section("Server Info", [
             f"Online: \033[32mYes\033[0m",
+            f"Hostname: {hostname}",
+            f"IP: {ip}",
             f"Version: {data.get('version', 'Unknown')}",
             f"Players: {data.get('players', {}).get('online', 0)}/{data.get('players', {}).get('max', 0)}"
         ])
-        
-        # If available
+
+        # If available, show player list
         if "list" in data.get("players", {}):
             player_list = data["players"]["list"]
             if player_list:
@@ -79,30 +92,39 @@ def check_server_status(server_address):
                 print_section("Players Online", ["No players online"])
 
     except requests.exceptions.RequestException as e:
-        print(f"Failed to retrieve server status: {e}")
+        print(f"   Failed to retrieve server status: {e}")
         sys.exit(1)
 
+
 def custom_help_message():
-    print(f"   \033[44m\033[1m mc-check \033[0m")
-    print("\n   \033[38;2;161;161;169mArguments:\033[0m")
-    print("     -h, --help           show this help message and exit")
-    print("     server               the address of the Minecraft server to check\n")
+    print_mc_check_header()
+    print()  # Adding the missing line break between header and Arguments section
+    print("   \033[38;2;161;161;169mArguments:\033[0m")
+    print("      server.ip                  the address of the Minecraft server to check\n")
     print("   \033[38;2;161;161;169mExample usage:\033[0m")
-    print("     mc-check sp.spworlds.ru")
+    print("      mc-check sp.spworlds.ru    check Minecraft server with IP sp.spworlds.ru\n")
 
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Check the status of a Minecraft server.")
+    parser = argparse.ArgumentParser(description="Check the status of a Minecraft server.", add_help=False)
     parser.add_argument("server", nargs="?", help="The address of the Minecraft server to check (e.g., sp.spworlds.ru).")
+    parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit.")
+
+    args, unknown_args = parser.parse_known_args()
     
-    args = parser.parse_args()
-    
+    if args.help or (unknown_args and all(arg.startswith('-') for arg in unknown_args)):
+        custom_help_message()
+        sys.exit(0)
+
     if args.server is None:
         custom_help_message()
         sys.exit(0)
 
     check_server_status(args.server)
+    
+    # Adding a final line break for spacing after the output
+    print()
 
 if __name__ == "__main__":
     main()
