@@ -69,5 +69,9 @@ Checking Minecraft server with IP sp.spworlds.ru:
 mc-check sp.spworlds.ru
 ```
 
+## To-do 📋
+- [ ] Add README to pypi page
+- [ ] Update API from v2 to v3
+
 ## Credit ℹ️
 API used for all requests is taken from [Minecraft Server Status](https://mcsrvstat.us/)
