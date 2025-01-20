@@ -44,14 +44,12 @@ def interpret_motd(motd):
 
 
 def print_section(title, content, indent=5):
-    # Added a newline before each section for better spacing
     print(f"\n   {title}:")
     for line in content:
         print(" " * indent + line)
 
 
 def print_mc_check_header():
-    # Adding exactly 3 spaces before the header
     print(f"\n   \033[44m\033[1m mc-check \033[0m")
 
 
@@ -98,7 +96,7 @@ def check_server_status(server_address):
 
 def custom_help_message():
     print_mc_check_header()
-    print()  # Adding the missing line break between header and Arguments section
+    print()
     print("   \033[38;2;161;161;169mArguments:\033[0m")
     print("      server.ip                  the address of the Minecraft server to check\n")
     print("   \033[38;2;161;161;169mExample usage:\033[0m")
@@ -123,7 +121,6 @@ def main():
 
     check_server_status(args.server)
     
-    # Adding a final line break for spacing after the output
     print()
 
 if __name__ == "__main__":
