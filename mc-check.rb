@@ -8,7 +8,6 @@ class McCheck < Formula
   license "GPL-3.0"
 
   depends_on "python@3.9"
-  depends_on "requests"
 
   def install
     venv = virtualenv_create(libexec, "python3")
