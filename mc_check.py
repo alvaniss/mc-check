@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import requests
 import argparse
 import sys
@@ -56,7 +54,7 @@ def print_mc_check_header():
 
 def check_server_status(server_address):
     print_mc_check_header()
-    url = f"https://api.mcsrvstat.us/2/{server_address}"
+    url = f"https://api.mcsrvstat.us/3/{server_address}"
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -80,14 +78,14 @@ def check_server_status(server_address):
             f"Version: {data.get('version', 'Unknown')}",
             f"Players: {data.get('players', {}).get('online', 0)}/{data.get('players', {}).get('max', 0)}"
         ])
-
-        # If available, show player list
+        
+        player_list = []
         if "list" in data.get("players", {}):
-            player_list = data["players"]["list"]
-            if player_list:
-                print_section("Players Online", player_list)
-            else:
-                print_section("Players Online", ["No players online"])
+            player_list = [player["name"] for player in data["players"]["list"]]
+        if player_list:
+            print_section("Players Online", player_list)
+        else:
+            print_section("Players Online", ["No players online"])
 
     except requests.exceptions.RequestException as e:
         print(f"   Failed to retrieve server status: {e}")
@@ -98,7 +96,7 @@ def custom_help_message():
     print_mc_check_header()
     print()
     print("   \033[38;2;161;161;169mArguments:\033[0m")
-    print("      server.ip                  the address of the Minecraft server to check\n")
+    print("      <server ip>                the address of the Minecraft server to check\n")
     print("   \033[38;2;161;161;169mExample usage:\033[0m")
     print("      mc-check sp.spworlds.ru    check Minecraft server with IP sp.spworlds.ru\n")
 
