@@ -4,7 +4,7 @@
   <a href="https://github.com/alvaniss/mc-check"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/alvaniss/mc-check"></a>
 </p>
 
-## What is mc-check?
+# What is mc-check?
 <div align="center"><img width="800px" src="https://raw.githubusercontent.com/alvaniss/mc-check/refs/heads/main/preview.png"></div>
 
 **mc-check** is a command line tool that allows you to quickly get a lot of information about the Minecraft server you need. The information you get is similar to what you see when you add a server to the server list in the game, but in a more convenient format.
