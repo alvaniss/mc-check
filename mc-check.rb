@@ -4,7 +4,7 @@ class McCheck < Formula
   desc "CLI tool to check Minecraft server status using the mcsrvstat.us API"
   homepage "https://github.com/alvaniss/mc-check"
   url "https://github.com/alvaniss/mc-check/archive/refs/tags/v1.0.8.tar.gz"
-  sha256 "b9f8395f24c66132a0373ecddae649fe013cb18c397a9091e03f11779dac0f09"
+  sha256 "73f98e84e105dcdaa33a2350100d16e5d8d6a9080e2773feb7340e12af61c3f8"
   license "GPL-3.0"
 
   depends_on "python@3.9"
