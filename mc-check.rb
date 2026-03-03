@@ -3,7 +3,7 @@ class McCheck < Formula
 
   desc "CLI tool to check Minecraft server status using the mcsrvstat.us API"
   homepage "https://github.com/alvaniss/mc-check"
-  url "https://github.com/alvaniss/mc-check/archive/refs/tags/v1.0.7.tar.gz"
+  url "https://github.com/alvaniss/mc-check/archive/refs/tags/v1.0.8.tar.gz"
   sha256 "b9f8395f24c66132a0373ecddae649fe013cb18c397a9091e03f11779dac0f09"
   license "GPL-3.0"
 
@@ -17,7 +17,7 @@ class McCheck < Formula
     venv.pip_install "certifi"
     venv.pip_install "chardet"
     venv.pip_install_and_link buildpath
-  end  
+  end
 
   test do
     assert_match "Usage", shell_output("#{bin}/mc_check --help")

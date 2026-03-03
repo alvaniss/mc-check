@@ -1,3 +1,10 @@
+# Copyright (C) 2026 alvaniss
+#
+# This file is part of mc-check.
+#
+# This program is free software licensed under the GNU General Public License v3.0.
+# See the LICENSE file for details.
+
 import requests
 import argparse
 import sys
@@ -59,14 +66,14 @@ def check_server_status(server_address):
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        
+
         if not data.get("online"):
             print("\n   The server is \033[31mOFFLINE\033[0m.")
             return
 
         ip = data.get("ip", "Unknown")
         hostname = data.get("hostname", server_address)
-        
+
         raw_motd = "".join(data.get("motd", {}).get("raw", []))
 
         print_section("MOTD", [interpret_motd(raw_motd)])
@@ -78,7 +85,7 @@ def check_server_status(server_address):
             f"Version: {data.get('version', 'Unknown')}",
             f"Players: {data.get('players', {}).get('online', 0)}/{data.get('players', {}).get('max', 0)}"
         ])
-        
+
         player_list = []
         if "list" in data.get("players", {}):
             player_list = [player["name"] for player in data["players"]["list"]]
@@ -108,7 +115,7 @@ def main():
     parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit.")
 
     args, unknown_args = parser.parse_known_args()
-    
+
     if args.help or (unknown_args and all(arg.startswith('-') for arg in unknown_args)):
         custom_help_message()
         sys.exit(0)
@@ -118,7 +125,7 @@ def main():
         sys.exit(0)
 
     check_server_status(args.server)
-    
+
     print()
 
 if __name__ == "__main__":
